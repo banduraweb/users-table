@@ -1,0 +1,1 @@
+{"version":3,"sources":["App.css"],"names":[],"mappings":"AAAA,gBACI,YACJ,CAEA,oCACI,gBACI,qBACJ,CACJ","file":"main.f6a48891.chunk.css","sourcesContent":["#header__navbar {\n    display: flex;\n}\n\n@media screen and (max-width: 760px) {\n    #header__navbar {\n        flex-direction: column;\n    }\n}"]}

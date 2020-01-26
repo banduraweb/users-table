@@ -56,10 +56,6 @@ function App() {
         userDataBase: "_id, firstName, lastName, phone, gender, age"
     });
 
-    db.version(1).stores({
-        userDataBase: "++id,someIndex"
-    });
-
     db.on('ready', function () {
         return db.userDataBase.count(function (count) {
             if (count > 0) {

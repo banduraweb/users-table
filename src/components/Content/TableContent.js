@@ -31,7 +31,7 @@ const TableContent = ({userDataBase, deleteUser}) => {
             case true:
                 isClicked ?
                 setRenderData({
-                    // isClicked: !isClicked,
+                    isClicked: !isClicked,
                     users: [...ALL_USERS].sort((a, b) => +a[filterType] - (+b[filterType]))
                     }) :  setRenderData({
                         isClicked: !isClicked,
@@ -41,7 +41,7 @@ const TableContent = ({userDataBase, deleteUser}) => {
             case false:
                 isClicked ?
                     setRenderData({
-                        // isClicked: !isClicked,
+                        isClicked: !isClicked,
                         users: [...ALL_USERS].sort((a, b) => b[filterType].localeCompare(a[filterType]))
                     }) :  setRenderData({
                         isClicked: !isClicked,

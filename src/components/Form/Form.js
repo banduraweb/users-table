@@ -24,52 +24,51 @@ const FormRegistration = ({
     const validatingForm = ({target}) => {
         const {value, name} = target;
 
-        let check = "";
+        let regex = "";
         switch (name) {
             case "FIRST_NAME":
-                check = value.toLowerCase().replace(/[a-z]/g, "").length;
-                if (check > 0 || value.length === 0) {
-                    setErrorValidate({
-                        ...errorValidate,
-                        isValidFirstName: false
-                    });
-                } else {
+
+                regex =  /^[a-zA-Z]{1,20}$/g;
+
+                if (regex.test(value.trim())) {
                     setErrorValidate({
                         ...errorValidate,
                         isValidFirstName: true
                     });
+                } else {
+                    setErrorValidate({
+                        ...errorValidate,
+                        isValidFirstName: false
+                    });
                 }
                 break;
             case "LAST_NAME":
-                check = value.toLowerCase().replace(/[a-z]/g, "").length;
-                if (check > 0 || value.length === 0) {
-                    setErrorValidate({
-                        ...errorValidate,
-                        isValidLastName: false
-                    });
-                } else {
+                regex =  /^[a-zA-Z]{1,20}$/g;
+
+                if (regex.test(value.trim())) {
                     setErrorValidate({
                         ...errorValidate,
                         isValidLastName: true
                     });
+                } else {
+                    setErrorValidate({
+                        ...errorValidate,
+                        isValidLastName: false
+                    });
                 }
                 break;
             case "PHONE":
-                check = value.toLowerCase().replace(/[0-9]/g, "").length;
+                 regex = /0\d{9}/;
 
-                if (
-                    check !== 0 ||
-                    (check === 0 && value.length > 10) ||
-                    (check === 0 && value.length < 5)
-                ) {
+                if (regex.test(value.trim())) {
                     setErrorValidate({
                         ...errorValidate,
-                        isValidPhone: false
+                        isValidPhone: true
                     });
                 } else {
                     setErrorValidate({
                         ...errorValidate,
-                        isValidPhone: true
+                        isValidPhone: false
                     });
                 }
                 break;
@@ -99,6 +98,8 @@ const FormRegistration = ({
                     });
                 }
                 break;
+            default:
+
         }
         return errorValidate;
     };
@@ -132,7 +133,7 @@ const FormRegistration = ({
                         onBlur={validatingForm}
                         onChange={getUsersInfo}
                         name={"FIRST_NAME"}
-                        value={FIRST_NAME}
+                        value={FIRST_NAME.trim()}
                         type="text"
                         placeholder={`${USERS_TYPES_DATA.FIRST_NAME.toLowerCase()}`}
                     />
@@ -150,7 +151,7 @@ const FormRegistration = ({
                                 : "success"}
                         onBlur={validatingForm}
                         onChange={getUsersInfo}
-                        value={LAST_NAME}
+                        value={LAST_NAME.trim()}
                         name={"LAST_NAME"}
                         type="text"
                         placeholder={`${USERS_TYPES_DATA.LAST_NAME.toLowerCase()}`}
@@ -227,7 +228,7 @@ const FormRegistration = ({
 
                         onChange={getUsersInfo}
                         onBlur={validatingForm}
-                        value={PHONE}
+                        value={PHONE.trim()}
                         name={"PHONE"}
                         type="text"
                         placeholder={`${USERS_TYPES_DATA.PHONE.toLowerCase().replace(

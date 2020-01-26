@@ -29,7 +29,6 @@ function App() {
         const getUsers = async () => {
             let DB_READY = await db.on("ready", () => (db));
 
-            // let DB_TABLE = await db.tables.find((table) => table.name);
             let allUsers = await db.userDataBase.toArray();
 
             setTimeout(() => {
@@ -62,12 +61,12 @@ function App() {
             if (count > 0) {
                 setTimeout(()=>{
                 setStatusDataBase(false);
-                console.log("Already populated");
+
                 },1500);
             } else {
                 setTimeout(()=>{
                     setStatusDataBase(true);
-                    console.log("Database is empty");
+
                 },1500);
 
             }
@@ -138,7 +137,7 @@ function App() {
     const {ALL_USERS, DB_READY_INFO} = userDataBase;
 
     const searchQuery=(e)=>{
-        const query = e.target.value;
+        const query = e.target.value.trim();
         setQueryParam(query);
     };
 

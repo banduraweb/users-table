@@ -3,13 +3,17 @@ import {Table, Button} from "react-bootstrap";
 import {USERS_TYPES_DATA} from "../../constants/users-data";
 import ModalWindow from "../ModalWindow/ModalWindow";
 
-const TableContent = ({userDataBase, deleteUser}) => {
-    const [InfoForDeleteUser, setInfoForDeleteUset] = useState({
-        selected: false,
-        id: null,
-        firstName: null,
-        lastName: null
-    });
+const INIT_DATA_USER_FOR_DELETE = {
+    selected: false,
+    id: null,
+    firstName: null,
+    lastName: null
+};
+
+const TableContent = ({userDataBase, deleteUser, queryParam}) => {
+
+
+    const [InfoForDeleteUser, setInfoForDeleteUser] = useState(INIT_DATA_USER_FOR_DELETE);
     const [renderData, setRenderData] = useState({
         isClicked: false,
         users: []
@@ -26,7 +30,7 @@ const TableContent = ({userDataBase, deleteUser}) => {
     const {users, isClicked} = renderData;
 
     const handleSort = (filterType) => {
-        console.log('isClicked');
+
         switch (!isNaN(+ALL_USERS[0][filterType])) {
             case true:
                 isClicked ?
@@ -57,7 +61,7 @@ const TableContent = ({userDataBase, deleteUser}) => {
         }
     };
     const getUserInfoBeforeDelete =(id,name,surname)=> {
-        setInfoForDeleteUset({
+        setInfoForDeleteUser({
             ...InfoForDeleteUser,
             selected: true,
             id: id,
@@ -69,23 +73,19 @@ const TableContent = ({userDataBase, deleteUser}) => {
     const getConfirmDeleteUser=(oncancel, ondelete, id)=>{
 
         if (oncancel) {
-            setInfoForDeleteUset({
-                selected: false,
-                id: null,
-                firstName: null,
-                lastName: null
-            })
+            setInfoForDeleteUser(INIT_DATA_USER_FOR_DELETE)
         } else if (ondelete) {
             deleteUser(id);
-            setInfoForDeleteUset({
-                selected: false,
-                id: null,
-                firstName: null,
-                lastName: null
-            })
+            setInfoForDeleteUser(INIT_DATA_USER_FOR_DELETE)
         }
 
     };
+
+    const visibleUsers = queryParam === ''
+        ? users
+        : users.filter(({ FIRST_NAME, LAST_NAME }) => (FIRST_NAME + LAST_NAME)
+            .toLowerCase()
+            .includes(queryParam.toLowerCase()));
 
     const {selected} = InfoForDeleteUser;
     return (
@@ -113,7 +113,7 @@ const TableContent = ({userDataBase, deleteUser}) => {
             </thead>
             <tbody>
             {
-                users.map(
+                visibleUsers.map(
                 ({_id, FIRST_NAME, LAST_NAME, PHONE, GENDER, AGE}, idx) => (
 
                     <tr key={_id}>

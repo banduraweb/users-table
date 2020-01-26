@@ -49,6 +49,7 @@ function App() {
     const [userDataBase, setUserDataBase] = useState(DATABASE_OF_USERS);
     const [isEmptyDataBase, setStatusDataBase] = useState(null);
     const [isSubmit, setStatusSubmit] = useState(null);
+    const [queryParam, setQueryParam] = useState('');
 
     const db = new Dexie("ReactDexie");
 
@@ -135,10 +136,18 @@ function App() {
     };
 
     const {ALL_USERS, DB_READY_INFO} = userDataBase;
-    console.log(ALL_USERS,"ALL_USERS");
+
+    const searchQuery=(e)=>{
+        const query = e.target.value;
+        setQueryParam(query);
+    };
+
+
     return (
         <Container>
-            <Header dbInfo={DB_READY_INFO}/>
+            <Header dbInfo={DB_READY_INFO}
+                    searchQuery={searchQuery}
+            />
             <FormRegistration
                 getUsersInfo={getUsersInfo}
                 onSubmitUsersData={onSubmitUsersData}
@@ -160,6 +169,7 @@ function App() {
                             : ALL_USERS.length > 0
                                 ? <TableContent
                                     userDataBase={userDataBase}
+                                    queryParam={queryParam}
                                     deleteUser={deleteUser}
 
                                 />

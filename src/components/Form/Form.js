@@ -18,7 +18,7 @@ const FormRegistration = ({
                               isSubmit
                           }) => {
     const [errorValidate, setErrorValidate] = useState(INIT_FORM_ERROR);
-    console.log(isSubmit);
+
     const {FIRST_NAME, LAST_NAME, PHONE, GENDER, AGE} = userState;
 
     const validatingForm = ({target}) => {
